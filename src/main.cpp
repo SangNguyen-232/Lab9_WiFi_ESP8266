@@ -1,8 +1,9 @@
 #include <Arduino.h>
 #include <math.h>
+#include "led.h"
 
 void setup() {
-    pinMode(2, OUTPUT);
+    led_init(); // Khởi tạo các chân LED theo module
 }
 
 void loop() {
@@ -10,9 +11,9 @@ void loop() {
     float time = millis() / 1000.0;
     int blink_delay = 275 + (int)(225 * sin(time));
 
-    digitalWrite(2, LOW);  // Bật LED
+    led_set(LED_GPIO2, true);  // Bật LED bằng module (đã xử lý active-LOW)
     delay(blink_delay);
-    digitalWrite(2, HIGH); // Tắt LED
+    led_set(LED_GPIO2, false); // Tắt LED
     delay(blink_delay);
 }
 
