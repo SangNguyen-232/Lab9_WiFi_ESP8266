@@ -10,7 +10,7 @@ Hệ thống được chia thành các module độc lập để dễ dàng bả
 - **`src/main.cpp`**: Bộ điều phối (Coordinator), khởi tạo và chạy vòng lặp của các module.
 - **`src/mqtt_manager.cpp`**: Quản lý kết nối MQTT Adafruit IO, Publish dữ liệu định kỳ và Subscribe nhận phản hồi từ Cloud.
 - **`src/comm.cpp`**: Xử lý giao tiếp UART với STM32 (D5/D6) theo giao thức chuẩn `!TAG:VALUE#`.
-- **`src/wifi_manager.cpp`**: Quản lý đồng thời chế độ AP (Phát WiFi cấu hình) và STA (Kết nối Internet).
+- **`src/wifi_manager.cpp`**: Quản lý đồng thời chế độ AP (Phát WiFi cấu hình) và STA (Kết nối Internet). Hỗ trợ kết nối non-blocking với LED GPIO5 báo trạng thái busy trong quá trình kết nối và tắt khi hoàn tất.
 - **`src/web_server.cpp`**: Cung cấp Web UI cục bộ và các API điều khiển thiết bị.
 - **`src/led.cpp`**: Quản lý trạng thái LED và hiệu ứng nháy Sin tự động.
 
@@ -27,7 +27,11 @@ Hệ thống được chia thành các module độc lập để dễ dàng bả
   - `!TEMP:25#` -> Cập nhật Nhiệt độ 25°C.
   - `!HUMID:65#` -> Cập nhật Độ ẩm 65%.
 
-### 2.3. Hệ thống Logging (Debug)
+### 2.3. Non-blocking Operations
+- WiFi connection process is non-blocking, allowing the main loop to continue while connecting.
+- LED on GPIO5 lights up during connection attempts and turns off on success or timeout.
+
+### 2.4. Hệ thống Logging (Debug)
 - Toàn bộ hoạt động của hệ thống được in chi tiết ra cổng Serial (Baudrate: 115200).
 - Các bản tin Log được gắn Tag phân loại: `[SYSTEM]`, `[WIFI]`, `[MQTT]`, `[COMM]`, `[HTTP]`.
 
