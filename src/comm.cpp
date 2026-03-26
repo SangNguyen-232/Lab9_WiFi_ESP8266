@@ -55,9 +55,8 @@ void comm_update() {
     static unsigned long last_fake = 0;
     if (millis() - last_fake > SENSOR_READ_INTERVAL) {
         last_fake = millis();
-        if (current_temperature == 0) { // Chỉ giả lập nếu không nhận được dữ liệu thực
-            current_temperature = random(25, 35);
-            current_humidity = random(50, 70);
-        }
+        current_temperature = random(25, 35);
+        current_humidity = random(50, 70);
     }
+    
 }

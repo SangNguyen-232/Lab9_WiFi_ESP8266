@@ -1,6 +1,7 @@
 #include "wifi_manager.h"
 #include "config.h"
 #include <ESP8266WiFi.h>
+#include "led.h"
 
 String target_ssid = "";
 String target_pass = "";
@@ -23,26 +24,32 @@ void wifi_init() {
  * Kiểm tra yêu cầu kết nối WiFi và thực hiện kết nối tới mạng mục tiêu.
  */
 void wifi_update() {
+    static unsigned long connect_start = 0;
+    static bool connecting = false;
+
     if (request_connect_wifi) {
         request_connect_wifi = false;
-        
-        Serial.print("[WIFI] Connecting to target network: ");
-        Serial.println(target_ssid);
-        
-        WiFi.begin(target_ssid.c_str(), target_pass.c_str());
-        
-        unsigned long start_time = millis();
-        while (WiFi.status() != WL_CONNECTED && millis() - start_time < 10000) {
-            delay(500);
-            Serial.print(".");
-        }
+        connecting = true;
+        connect_start = millis();
 
+        led_set(5, true);
+
+        WiFi.disconnect();
+        delay(100);
+        WiFi.mode(WIFI_AP_STA);
+        WiFi.begin(target_ssid.c_str(), target_pass.c_str());
+        Serial.printf("[WIFI] Connecting to: %s\n", target_ssid.c_str());
+    }
+
+    if (connecting) {
         if (WiFi.status() == WL_CONNECTED) {
-            Serial.println("\n[WIFI] Connected successfully!");
-            Serial.print("[WIFI] Station IP: ");
-            Serial.println(WiFi.localIP());
-        } else {
-            Serial.println("\n[WIFI][ERROR] Connection failed! Timeout.");
+            connecting = false;
+            led_set(5, false);
+            Serial.println("[WIFI] Connected! IP: " + WiFi.localIP().toString());
+        } else if (millis() - connect_start > 10000) {
+            connecting = false;
+            led_set(5, false);
+            Serial.printf("[WIFI][ERROR] Timeout! Status: %d\n", WiFi.status());
         }
     }
 }
