@@ -4,8 +4,8 @@
 /* --- CẤU HÌNH SERIAL (UART) --- */
 #define DEBUG_BAUDRATE      9600  
 #define STM32_BAUDRATE      9600    
-#define STM32_RX_PIN        14      
-#define STM32_TX_PIN        12      
+#define STM32_RX_PIN        1      
+#define STM32_TX_PIN        3      
 
 /* --- CẤU HÌNH WIFI (ACCESS POINT) --- */
 #define AP_SSID             "ESP8266_Config_Portal"
