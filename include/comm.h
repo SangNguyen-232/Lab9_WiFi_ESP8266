@@ -1,8 +1,8 @@
 #pragma once
 #include <Arduino.h>
 
-extern int current_temperature;
-extern int current_humidity;
+extern float current_temperature;
+extern uint32_t current_light;
 
 /*
  * Khởi tạo các cấu hình cần thiết cho việc giao tiếp.

@@ -3,7 +3,7 @@
 
 /* --- CẤU HÌNH SERIAL (UART) --- */
 #define DEBUG_BAUDRATE      9600  
-#define STM32_BAUDRATE      9600    
+#define STM32_BAUDRATE      115200    
 #define STM32_RX_PIN        1      
 #define STM32_TX_PIN        3      
 
@@ -19,7 +19,7 @@
 #define MQTT_KEY            "KEY"      
 /* Định dạng feed trên Adafruit: username/feeds/ten-feed */
 #define MQTT_FEED_TEMP      "USERNAME/feeds/iot.temp-feed"
-#define MQTT_FEED_HUMID     "USERNAME/feeds/iot.humid-feed"
+#define MQTT_FEED_LIGHT     "USERNAME/feeds/iot.light-feed"
 
 /* --- CẤU HÌNH ĐIỀU KHIỂN (LED/GPIO) --- */
 #define LED1_PIN            2       

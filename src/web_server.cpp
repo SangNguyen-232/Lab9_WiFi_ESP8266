@@ -42,7 +42,7 @@ void web_server_init() {
     });
 
     server.on("/sensor", []() {
-        String json = "{\"temperature\":" + String(current_temperature) + ",\"humidity\":" + String(current_humidity) + "}";
+        String json = "{\"temperature\":" + String(current_temperature) + ",\"light\":" + String(current_light) + "}";
         server.send(200, "application/json", json);
     });
 

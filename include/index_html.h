@@ -27,7 +27,7 @@ const char MAIN_page[] PROGMEM = R"rawliteral(
         
         <div class="sensor">
             <p>Nhiệt độ: <b><span id="temp">--</span> &deg;C</b></p>
-            <p>Độ ẩm: <b><span id="hum">--</span> &#37;</b></p>
+            <p>Ánh sáng: <b><span id="light">--</span> &#37;</b></p>
         </div>
         
         <div class="section">
@@ -64,7 +64,7 @@ const char MAIN_page[] PROGMEM = R"rawliteral(
         function updateSensor() {
             fetch('/sensor').then(res => res.json()).then(data => {
                 document.getElementById('temp').innerText = data.temperature;
-                document.getElementById('hum').innerText = data.humidity;
+                document.getElementById('light').innerText = data.light;
             });
         }
         setInterval(updateSensor, 2000);

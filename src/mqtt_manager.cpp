@@ -31,7 +31,7 @@ static void subscribe_all_feeds() {
     Serial.println("[MQTT] Đang đăng ký các Feed (Subscribe)...");
     
     client.subscribe(MQTT_FEED_TEMP);
-    client.subscribe(MQTT_FEED_HUMID);
+    client.subscribe(MQTT_FEED_LIGHT);
     
     /* Bạn có thể thêm các feed điều khiển khác ở đây */
     // client.subscribe(MQTT_FEED_CMD);
@@ -89,11 +89,11 @@ void mqtt_update() {
             dtostrf(current_temperature, 1, 0, payload);
             client.publish(MQTT_FEED_TEMP, payload);
 
-            /* Gửi Độ ẩm */
-            dtostrf(current_humidity, 1, 0, payload);
-            client.publish(MQTT_FEED_HUMID, payload);
+            /* Gửi Ánh sáng */
+            dtostrf(current_light, 1, 0, payload);
+            client.publish(MQTT_FEED_LIGHT, payload);
             
-            Serial.println("[MQTT][PUBLISH] Đã gửi dữ liệu Nhiệt độ & Độ ẩm lên Cloud.");
+            Serial.println("[MQTT][PUBLISH] Đã gửi dữ liệu Nhiệt độ & Ánh sáng lên Cloud.");
         }
     }
 }
